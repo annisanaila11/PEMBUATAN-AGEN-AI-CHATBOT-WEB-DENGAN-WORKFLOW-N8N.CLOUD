@@ -1,0 +1,116 @@
+{
+  "name": "My workflow 3",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Hi there! 👋\nMy name is Naila. How can I assist you today?",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        0,
+        0
+      ],
+      "id": "69383ac4-f87f-49ab-9817-dfc8f292d483",
+      "name": "When chat message received",
+      "webhookId": "05fca1ac-6842-4926-a481-74a0e9d7e84d"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "Kamu adalah asisten virtual yang bertugas memberikan informasi mengenai produk Wardah.\n\nTugas kamu:\n\n* Menjawab pertanyaan seputar produk skincare Wardah.\n* Menjelaskan fungsi dan manfaat produk berdasarkan informasi yang tersedia.\n* Memberikan informasi umum tentang cara penggunaan produk.\n* Membantu pengguna memahami berbagai jenis produk Wardah.\n\nAturan:\n\n* Gunakan bahasa Indonesia yang sederhana, ramah, dan mudah dipahami.\n* Berikan jawaban secara singkat, jelas, dan informatif.\n* Jangan mengarang informasi mengenai produk.\n* Jika informasi yang ditanyakan tidak tersedia, sampaikan dengan jujur bahwa informasi tersebut belum tersedia.\n* Jangan memberikan diagnosis atau menjanjikan hasil perawatan kulit tertentu.\n* Fokus pada informasi produk Wardah.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        224,
+        0
+      ],
+      "id": "21bffec5-ba1f-4ddd-8cdc-403beefbab95",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        176,
+        192
+      ],
+      "id": "42a7880b-eb2a-4047-812e-0f32df03dcb6",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": null,
+          "name": "",
+          "__aiGatewayManaged": true
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        368,
+        192
+      ],
+      "id": "08afaa89-6ea5-45b9-8ba5-0108a43db2ea",
+      "name": "Simple Memory"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "fc14deef-3c3f-4796-8ce5-15bddf56eae1",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "667a9abe6d301b8efa9ae17cc47ba598f90dfbc0e0bb706267f522366f202bcc"
+  },
+  "nodeGroups": [],
+  "id": "KxAmP9V3UdWYdrRp",
+  "tags": []
+}
